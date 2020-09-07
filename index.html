@@ -1,0 +1,432 @@
+<html>
+  <head>
+
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/redmond/jquery-ui.min.css" type="text/css" />
+    <link rel="stylesheet" href="css/temprate.css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+    <!-- <script src="http://jqueryui.com/themeroller/themeswitchertool/"></script> -->
+    <script src="js/reg.js"></script>
+    <script src="js/validation.js"></script>
+    <script>
+      function colorChangeRadio(target){
+        console.log(target);
+        const radioCheckedArr = [];
+        var trgChr = 'document.customForm.' + target;
+  	    const targetItem = eval(trgChr);
+        console.log(targetItem);
+
+        for (let i = 0; i < targetItem.length; i++){
+          console.log(i);
+  		    if(targetItem[i].checked){ //(color1[i].checked === true)と同じ
+  			    $(targetItem[i]).next().css('background','olive').children().css('color','white');
+  		    }else{
+            $(targetItem[i].nextSibling).css('background','white').children().css('color','#B1B1B1');
+          }
+  	    }
+      }
+
+      function chgStRgtButton(target){
+        if(target){
+          document.getElementById('clickForm').disabled = false;
+          document.getElementById('next').disabled = false;
+        }else{
+          document.getElementById('clickForm').disabled = true;
+          document.getElementById('next').disabled = true;
+        }
+      }
+    </script>
+
+    <script>
+    $(function() {
+      var ac = $( "#accordion" ).accordion({
+        active: 1,
+        collapsible: true
+      });
+      //.resizable();//リサイズが可能
+      //.draggable();//アコーディオンの移動が可能
+      //.sortable();//アコーディオン内で移動可能
+      //ac.accordion("disable");//無効化
+      //ac.accordion("enable");//有効化
+    });
+    function changeVal_ac(a){
+
+      $( "#accordion" ).accordion('option', 'resizable', true);
+
+      const arr1 = [];
+	    const color1 = document.accordionOption.ac;
+
+      for (let i = 0; i < color1.length; i++){
+		    if(color1[i].checked){ //(color1[i].checked === true)と同じ
+			    arr1.push(color1[i].value);
+		    }
+	    }
+      console.log(arr1);
+
+      const optionA = {
+        collapsible: false,
+        animate: false
+      }
+      //console.log(Object.keys(optionA));
+      //for(i = 0; i < Object.keys(optionA).length; i++){
+      //  var v = Object.keys(optionA)[i];
+      //  optionA[v] = Object.keys(optionA)[i];
+      //  console.log(optionA[v]);
+      //}
+      //console.log(optionA);
+      for(i = 0; i < arr1.length; i++){
+        var v = arr1[i];
+        optionA[v] = true;
+      }
+      console.log(optionA);
+
+      $( "#accordion" ).accordion('option', optionA);
+
+    }
+    </script>
+
+    <script>
+    $(function() {
+      $.datepicker.setDefaults( $.datepicker.regional[ "ja" ] );
+      $( "#datepicker" ).datepicker();
+    });
+    </script>
+    <script>
+    $(function() {
+      $( "#nextDiv" ).hide();
+      $( "#overlay" ).hide();
+    });
+    </script>
+    <script>
+    $(function() {
+      $( "#check" ).button();
+      //$( "#check" ).button({disabled: true});
+      $( "#format" ).buttonset();
+      $( "#radio" ).buttonset();
+      $( "#mailMagazineDiv" ).buttonset();
+    });
+    </script>
+    <!--
+    <script>
+    $(function() {
+      var tooltips = $("[title = 'コピペはしないでください']").tooltip({
+        show: false//,
+        //position: {
+        //my: "left+15 center",
+        //at: "left center",
+        //of: this,
+        //collision: "flipfit"
+        //}
+      });
+      $( "<button>" )
+      .text( "ヘルプを表示" )
+      .button()
+      .click(function() {
+        tooltips.tooltip( "open");//指定したセレクタを外部から無関係の要素から呼び出し
+      })
+      .insertAfter( "#container" );
+    });
+    </script>
+    -->
+
+    <script>
+    $(function() {
+      $( "#rerun" )
+        .button()
+        .click(function() {
+          alert( "最後の動作を実行" );
+        })
+        .next()
+          .button({
+            text: false,//trueの場合は関連するテキストが表示される
+            icons: {
+            primary: "ui-icon-triangle-1-s"//,//テキストの左側
+            //secondary: "ui-icon-triangle-1-s"//テキストの右側
+          }
+        })
+        .click(function() {
+          var menu = $( this ).parent().next().show().position({
+            my: "left top",
+            at: "left bottom",
+            of: this
+          });
+          $( document ).one( "click", function() {
+            menu.hide();
+          });
+          return false;
+        })
+        .parent()
+          .buttonset()
+          .next()
+            .hide()
+            .menu();
+    });
+  </script>
+  <script>
+  $(function() {
+    $( "#beginning" ).button({
+      text: false,
+      icons: {
+        primary: "ui-icon-seek-start"
+      }
+    });
+    $( "#rewind" ).button({
+      text: false,
+      icons: {
+        primary: "ui-icon-seek-prev"
+      }
+    });
+    $( "#play" ).button({
+      text: false,
+      icons: {
+        primary: "ui-icon-play"
+      }
+    })
+    .click(function() {
+      var options;
+      if ( $( this ).text() === "play" ) {
+        options = {
+          label: "pause",
+          icons: {
+            primary: "ui-icon-pause"
+          }
+        };
+      } else {
+        options = {
+          label: "play",
+          icons: {
+            primary: "ui-icon-play"
+          }
+        };
+      }
+      $( this ).button( "option", options );
+    });
+    $( "#stop" ).button({
+      text: false,
+      icons: {
+        primary: "ui-icon-stop"
+      }
+    })
+    .click(function() {
+      $( "#play" ).button( "option", {
+        label: "play",
+        icons: {
+          primary: "ui-icon-play"
+        }
+      });
+    });
+    $( "#forward" ).button({
+      text: false,
+      icons: {
+        primary: "ui-icon-seek-next"
+      }
+    });
+    $( "#end" ).button({
+      text: false,
+      icons: {
+        primary: "ui-icon-seek-end"
+      }
+    });
+    $( "#shuffle" ).button();
+    $( "#repeat" ).buttonset();
+  });
+
+  </script>
+
+  </head>
+  <body>
+
+    <header>
+      <h1>ABC英会話</h1>
+      <h2>無料体験レッスン予約</h2>
+    </header>
+
+    <div class="contain_0">
+      <h3 id="priceDown">入学金いまなら無料（通常45000円）!!</h3>
+    </div>
+
+    <div id="accordion">
+      <h3>特典の利用について</h3>
+      <ul>
+        <li>特典の適用には条件があります。詳しくは、スクールへお問い合わせください。</li>
+        <li>特典は併用できません。</li>
+        <li>未成年の方は、保護者の同意が必要です。</li>
+      </ul>
+      <h3>個人情報の取り扱いについて</h3>
+      <p>個人情報の取り扱いについて必ず以下のリンクよりご確認いただき、同意の上で無料体験レッスンの予約へとお進みください。</p>
+      <!--
+      <h3>最初の見出し</h3>
+      <p>
+        <a href="#" title="これがこのウィジットです。">ツールチップ</a> は任意の要素に付与することが可能です。
+        要素に対してマウスオーバーすると、タイトル属性の内容が小さなボックスとして要素の隣にネイティブのツールチップのように表示されます。
+      </p>
+      <h3>オプションの変更</h3>
+      <form name="accordionOption">
+        <input type="checkbox" id="collapsible" value="collapsible" name="ac" checked="checked" onChange="changeVal_ac(this.val)" /><label for="collapsible">折りたたみ可</label>
+        <input type="checkbox" id="animate" value="animate" name="ac" checked="checked" onChange="changeVal_ac(this.val)" /><label for="animate">アニメーション</label>
+      </form>
+    -->
+    </div>
+    <!-- <div id="switcher"></div> -->
+
+    <div id="confirmArea" style="display:none;">
+      <h3>入力内容の確認</h3>
+      <div>
+        <p>お名前</p>
+        <input type="text" name="c_name" value=""/>
+      </div>
+      <div>
+        <p>フリガナ</p>
+        <input type="text" name="c_kanaName" value=""/>
+      </div>
+      <div>
+        <p>性別</p>
+        <input type="text" name="c_sex" value=""/>
+      </div>
+      <div>
+        <p>学習目的</p>
+        <input type="text" name="c_studyFor" value=""/>
+      </div>
+      <div>
+        <p>ご希望の日時</p>
+        <input type="text" name="c_datepicker" value=""/>
+      </div>
+      <div>
+        <p>E-mail</p>
+        <input type="text" name="c_email" value=""/>
+      </div>
+      <!--
+      <div>
+        <p>メルマガ</p>
+        <input type="text" name="c_mailMagazine" value=""/>
+      </div>
+      -->
+    </div>
+
+
+    <div class="contain_0">
+      <div id="riyokiyaku">
+        <input type="checkbox" id="check_riyokiyaku" value="同意する" name="riyokiyaku" onChange="chgStRgtButton(this.checked)" /><label for="check_riyokiyaku">利用規約に同意する</label>
+      </div>
+    </div>
+
+    <div class="contain_0">
+      <div id="registerButton">
+        <input type="button" id="clickForm" value="登録する" disabled="disabled" />
+      </div>
+    </div>
+
+    <!--
+    <div>
+      <div>
+        <button id="rerun">最後の動作を実行</button>
+        <button>動作を選択</button>
+      </div>
+      <ul>
+        <li><a href="#">開く...</a></li>
+        <li><a href="#">保存</a></li>
+        <li><a href="#">削除</a></li>
+      </ul>
+    </div>
+    -->
+    <!--
+    <span id="toolbar" class="ui-widget-header ui-corner-all">
+      <button id="beginning">go to beginning</button>
+      <button id="rewind">rewind</button>
+      <button id="play">play</button>
+      <button id="stop">stop</button>
+      <button id="forward">fast forward</button>
+      <button id="end">go to end</button>
+      <input type="checkbox" id="shuffle" /><label for="shuffle">Shuffle</label>
+      <span id="repeat">
+        <input type="radio" id="repeat0" name="repeat" checked="checked" /><label for="repeat0">No Repeat</label>
+        <input type="radio" id="repeat1" name="repeat" /><label for="repeat1">Once</label>
+        <input type="radio" id="repeatall" name="repeat" /><label for="repeatall">All</label>
+      </span>
+    </span>
+    -->
+
+    <div id="container">
+
+      <form id="customForm" name="customForm">
+
+        <div>
+          <label for="name">お名前</label>
+          <input type="text" name="name" id="name" value="" />
+          <span id="nameInfo">姓名を入力してください</span>
+        </div>
+
+        <div>
+          <label for="kanaName">フリガナ</label>
+          <input type="text" name="kanaName" id="kanaName" value="" />
+          <span id="kanaNameInfo">姓名のフリガナを入力してください</span>
+        </div>
+
+        <div id="radio">
+          <p>性別</p>
+          <input type="radio" id="male" name="sex" onChange="colorChangeRadio(this.name)" value="男性" /><label for="male">男性</label>
+          <input type="radio" id="female" name="sex" onChange="colorChangeRadio(this.name)" value="女性"/><label for="female">女性</label>
+        </div>
+
+        <div id="format">
+          <p>学習目的（複数回答）</p>
+          <input type="checkbox" id="check1" name="studyFor" onChange="colorChangeRadio(this.name)" value="日常会話" /><label for="check1">日常会話</label>
+          <input type="checkbox" id="check2" name="studyFor" onChange="colorChangeRadio(this.name)" value="海外旅行" /><label for="check2">海外旅行</label>
+          <input type="checkbox" id="check3" name="studyFor" onChange="colorChangeRadio(this.name)" value="仕事" /><label for="check3">仕事</label>
+        </div>
+
+        <div>
+          <label for="name">ご希望の日時</label>
+          <input type="text" id="datepicker" name="date" value="" />
+          <span id="datepickerInfo">ご希望の日時を入力してください</span>
+        </div>
+
+        <div>
+          <label for="email">E-mail</label>
+          <input type="text" name="email" id="email" value="" />
+          <span id="emailInfo">What's your E-mail?</span>
+        </div>
+
+        <!--
+
+        <div>
+          <label for="pass1">Password 1</label>
+          <input type="password" name="pass1" id="pass1" value="" />
+          <span id="pass1Info">What's your Password?</span>
+        </div>
+
+        <div>
+          <label for="pass2">Password 2</label>
+          <input type="password" name="pass2" id="pass2" value="" title="コピペはしないでください" />
+          <span id="pass2Info">What's your Password?</span>
+        </div>
+
+        -->
+        <!--
+        <div id="mailMagazineDiv">
+          <p>メルマガ</p>
+          <input type="checkbox" id="check4" name="mailMagazine" onChange="colorChangeRadio(this.name)" value="希望する" /><label for="check4">希望する</label>
+          <input type="checkbox" id="check5" name="mailMagazine" onChange="colorChangeRadio(this.name)" value="undefined" disabled="disabled" style="display:none" /><label for="check5" style="display:none" ></label>
+        </div>
+        -->
+
+        <!--
+        <div id="sendArea">
+          <input type="button" name="send" id="send" value="send" />
+        </div>
+        -->
+
+      </form>
+    </div>
+
+    <fotter>
+      <div id="nextDiv">
+        <button id="next" disabled="disabled">予約する</button>
+      </div>
+      <p>COPYRIGHT &copy; ABC. ALL RIGHTS RESERVED.</p>
+    </fotter>
+    <div id="overlay"></div>
+  </body>
+</html>
