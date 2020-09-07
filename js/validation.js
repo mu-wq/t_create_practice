@@ -118,7 +118,7 @@ $(document).ready(function(){
     }
     else{
       var uname = name.val();
-      $.post("validate.php", {"name": uname}, function(data){
+      //$.post("validate.php", {"name": uname}, function(data){
         if(data != 1){
           name.removeClass("valid");
           nameInfo.removeClass("valid");
@@ -135,7 +135,7 @@ $(document).ready(function(){
           nameInfo.text("OK!");
           state = true;
         }
-      });
+      //});
     }
     return state;
   }
