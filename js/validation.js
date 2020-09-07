@@ -119,22 +119,22 @@ $(document).ready(function(){
     else{
       var uname = name.val();
       //$.post("validate.php", {"name": uname}, function(data){
-        if(data != 1){
-          name.removeClass("valid");
-          nameInfo.removeClass("valid");
-          name.addClass("error");
-          nameInfo.addClass("error");
-          nameInfo.text("This name is already registered.");
-          state = false;
-        }
-        else{
+        //if(data != 1){
+        //  name.removeClass("valid");
+        //  nameInfo.removeClass("valid");
+        //  name.addClass("error");
+        //  nameInfo.addClass("error");
+        //  nameInfo.text("This name is already registered.");
+        //  state = false;
+        //}
+        //else{
           name.removeClass("error");
           nameInfo.removeClass("error");
           name.addClass("valid");
           nameInfo.addClass("valid");
           nameInfo.text("OK!");
           state = true;
-        }
+        //}
       //});
     }
     return state;
